@@ -162,21 +162,18 @@ func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string)
 		if doctype == "0" {
 			doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
 // 			docAsBytes, err = json.Marshal(doc)
-// 			docAsBytes, _ = json.Marshal(doc)
+			docAsBytes, _ = json.Marshal(doc)
 		} else if doctype == "1"{
 			doc := RequestReview{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequestReviewer: args[5], ReviewResult: args[6], UpdateTime: args[7]}
 // 			docAsBytes, err = json.Marshal(doc)
-// 			docAsBytes, _ = json.Marshal(doc)
+			docAsBytes, _ = json.Marshal(doc)
 		} else if doctype == "2"{
 			doc := TestReport{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], TestReportName: args[5], ReportHash: args[6], BugReportList: args[7], WorkerId: args[8], WorkerName: args[9], UpdateTime: args[10]}
 // 			docAsBytes, err = json.Marshal(doc)
-// 			docAsBytes, _ = json.Marshal(doc)
+			docAsBytes, _ = json.Marshal(doc)
 		} else if doctype == "3"{
 			doc := ReportReview{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], BugReportId: args[5], BugReportScore: args[6], ReportReviewer: args[7], UpdateTime: args[8]}
 // 			docAsBytes, err = json.Marshal(doc)
-			if err != nil {
-				return shim.Error(err.Error())
-			}
 // 			docAsBytes, _ = json.Marshal(doc)
 		} else if doctype == "4"{
 			doc := ReportMix{Type:doctype, TaskId: args[2], TaskName: args[3], ReportHash: args[4], BugReportList: args[5], ReportMixer:args[6], UpdateTime: args[7]}

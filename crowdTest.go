@@ -108,12 +108,13 @@ func (s *SmartContract) findOne(APIstub shim.ChaincodeStubInterface, args []stri
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
-	if len(args) > 0 {
-		docAsBytes, _ := APIstub.GetState(args[0])
-		return shim.Success(docAsBytes)
-	} else{
-		return shim.Success(nil)
-	}
+// 	if len(args) > 0 {
+// 		docAsBytes, _ := APIstub.GetState(args[0])
+// 		return shim.Success(docAsBytes)
+// 	} else{
+// 		return shim.Success(nil)
+// 	}
+	return shim.Success(nil)
 }
 
 func (s *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) sc.Response {
@@ -152,34 +153,35 @@ func (s *SmartContract) queryWithPagination(stub shim.ChaincodeStubInterface, ar
 }
 
 func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	if len(args) > 0 {
-		doctype := args[1]
-		var docAsBytes []byte
-		if doctype == "0" {
-			doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
-			docAsBytes, _ = json.Marshal(doc)
-		} else if doctype == "1"{
-			doc := RequestReview{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequestReviewer: args[5], ReviewResult: args[6], UpdateTime: args[7]}
-			docAsBytes, _ = json.Marshal(doc)
-		} else if doctype == "2"{
-			doc := TestReport{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], TestReportName: args[5], ReportHash: args[6], BugReportList: args[7], WorkerId: args[8], WorkerName: args[9], UpdateTime: args[10]}
-			docAsBytes, _ = json.Marshal(doc)
-		} else if doctype == "3"{
-			doc := ReportReview{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], BugReportId: args[5], BugReportScore: args[6], ReportReviewer: args[7], UpdateTime: args[8]}
-			docAsBytes, _ = json.Marshal(doc)
-		} else if doctype == "4"{
-			doc := ReportMix{Type:doctype, TaskId: args[2], TaskName: args[3], ReportHash: args[4], BugReportList: args[5], ReportMixer:args[6], UpdateTime: args[7]}
-			docAsBytes, _ = json.Marshal(doc)
-		} else if doctype == "5"{
-			doc := TaskState{Type:doctype, TaskId: args[2], TaskName: args[3], TaskState:args[4], UpdateTime: args[5]}
-			docAsBytes, _ = json.Marshal(doc)
-		}
+// 	if len(args) > 0 {
+// 		doctype := args[1]
+// 		var docAsBytes []byte
+// 		if doctype == "0" {
+// 			doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
+// 			docAsBytes, _ = json.Marshal(doc)
+// 		} else if doctype == "1"{
+// 			doc := RequestReview{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequestReviewer: args[5], ReviewResult: args[6], UpdateTime: args[7]}
+// 			docAsBytes, _ = json.Marshal(doc)
+// 		} else if doctype == "2"{
+// 			doc := TestReport{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], TestReportName: args[5], ReportHash: args[6], BugReportList: args[7], WorkerId: args[8], WorkerName: args[9], UpdateTime: args[10]}
+// 			docAsBytes, _ = json.Marshal(doc)
+// 		} else if doctype == "3"{
+// 			doc := ReportReview{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], BugReportId: args[5], BugReportScore: args[6], ReportReviewer: args[7], UpdateTime: args[8]}
+// 			docAsBytes, _ = json.Marshal(doc)
+// 		} else if doctype == "4"{
+// 			doc := ReportMix{Type:doctype, TaskId: args[2], TaskName: args[3], ReportHash: args[4], BugReportList: args[5], ReportMixer:args[6], UpdateTime: args[7]}
+// 			docAsBytes, _ = json.Marshal(doc)
+// 		} else if doctype == "5"{
+// 			doc := TaskState{Type:doctype, TaskId: args[2], TaskName: args[3], TaskState:args[4], UpdateTime: args[5]}
+// 			docAsBytes, _ = json.Marshal(doc)
+// 		}
 
-		APIstub.PutState(args[0], docAsBytes)
-		return shim.Success(nil)
-	} else{
-		return shim.Success(nil)
-	}
+// 		APIstub.PutState(args[0], docAsBytes)
+// 		return shim.Success(nil)
+// 	} else{
+// 		return shim.Success(nil)
+// 	}
+	return shim.Success(nil)
 }
 
 func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) sc.Response {

@@ -109,8 +109,8 @@ func (s *SmartContract) findOne(APIstub shim.ChaincodeStubInterface, args []stri
 	}
 
 	if len(args) > 0 {
-	docAsBytes, _ := APIstub.GetState(args[0])
-	return shim.Success(docAsBytes)
+		docAsBytes, _ := APIstub.GetState(args[0])
+		return shim.Success(docAsBytes)
 	} else{
 		return shim.Success(nil)
 	}

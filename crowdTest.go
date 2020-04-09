@@ -157,6 +157,7 @@ func (s *SmartContract) queryWithPagination(stub shim.ChaincodeStubInterface, ar
 func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 	if len(args) > 0 {
 		doctype := args[1]
+		var err = nil
 		var docAsBytes []byte
 		if doctype == "0" {
 			doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}

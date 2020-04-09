@@ -108,8 +108,8 @@ func (s *SmartContract) findOne(APIstub shim.ChaincodeStubInterface, args []stri
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
-// 	docAsBytes, _ := APIstub.GetState(args[0])
-	return shim.Success(nil)
+	docAsBytes, _ := APIstub.GetState(args[0])
+	return shim.Success(docAsBytes)
 }
 
 func (s *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) sc.Response {

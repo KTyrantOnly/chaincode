@@ -158,7 +158,7 @@ func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string)
 	if len(args) > 0 {
 		doctype := args[1]
 		var docAsBytes []byte
-		var err = nil
+// 		var err = nil
 		if doctype == "0" {
 			doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
 // 			docAsBytes, err = json.Marshal(doc)

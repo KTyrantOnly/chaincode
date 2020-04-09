@@ -185,9 +185,9 @@ func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string)
 // 			docAsBytes, _ = json.Marshal(doc)
 		}
 		
-		if err != nil {
-			return shim.Error(err.Error())
-		}
+// 		if err != nil {
+// 			return shim.Error(err.Error())
+// 		}
 		
 		err1 := APIstub.PutState(args[0], docAsBytes)
 		if err1 != nil {

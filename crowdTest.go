@@ -196,10 +196,7 @@ func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string)
 			}
 		}
 
-		err := APIstub.PutState(args[0], docAsBytes)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
+		APIstub.PutState(args[0], docAsBytes)
 		return shim.Success(nil)
 	} else{
 		return shim.Success(nil)

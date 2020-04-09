@@ -108,8 +108,13 @@ func (s *SmartContract) findOne(APIstub shim.ChaincodeStubInterface, args []stri
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
+	if len(args) > 0 {
 	docAsBytes, _ := APIstub.GetState(args[0])
 	return shim.Success(docAsBytes)
+	}
+	else{
+		return shim.Success(nil)
+	}
 }
 
 func (s *SmartContract) query(stub shim.ChaincodeStubInterface, args []string) sc.Response {
@@ -148,9 +153,8 @@ func (s *SmartContract) queryWithPagination(stub shim.ChaincodeStubInterface, ar
 }
 
 func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-
-	doctype := args[1]
-
+	if len(args) > 0 {
+		doctype := args[1]
 	var docAsBytes []byte
 	if doctype == "0" {
 		doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
@@ -173,6 +177,7 @@ func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string)
 	}
 
 	APIstub.PutState(args[0], docAsBytes)
+	}
 
 	return shim.Success(nil)
 }

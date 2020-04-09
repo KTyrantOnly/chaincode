@@ -149,30 +149,30 @@ func (s *SmartContract) queryWithPagination(stub shim.ChaincodeStubInterface, ar
 
 func (s *SmartContract) save(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-// 	doctype := args[1]
+	doctype := args[1]
 
-// 	var docAsBytes []byte
-// 	if doctype == "0" {
-// 		doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
-// 		docAsBytes, _ = json.Marshal(doc)
-// 	} else if doctype == "1"{
-// 		doc := RequestReview{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequestReviewer: args[5], ReviewResult: args[6], UpdateTime: args[7]}
-// 		docAsBytes, _ = json.Marshal(doc)
-// 	} else if doctype == "2"{
-// 		doc := TestReport{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], TestReportName: args[5], ReportHash: args[6], BugReportList: args[7], WorkerId: args[8], WorkerName: args[9], UpdateTime: args[10]}
-// 		docAsBytes, _ = json.Marshal(doc)
-// 	} else if doctype == "3"{
-// 		doc := ReportReview{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], BugReportId: args[5], BugReportScore: args[6], ReportReviewer: args[7], UpdateTime: args[8]}
-// 		docAsBytes, _ = json.Marshal(doc)
-// 	} else if doctype == "4"{
-// 		doc := ReportMix{Type:doctype, TaskId: args[2], TaskName: args[3], ReportHash: args[4], BugReportList: args[5], ReportMixer:args[6], UpdateTime: args[7]}
-// 		docAsBytes, _ = json.Marshal(doc)
-// 	} else if doctype == "5"{
-// 		doc := TaskState{Type:doctype, TaskId: args[2], TaskName: args[3], TaskState:args[4], UpdateTime: args[5]}
-// 		docAsBytes, _ = json.Marshal(doc)
-// 	}
+	var docAsBytes []byte
+	if doctype == "0" {
+		doc := RequestCommit{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequesterId: args[5], RequesterName: args[6], RequestDocHash: args[7], RequestDocName: args[8], TestSoftwareName: args[9], UpdateTime: args[10]}
+		docAsBytes, _ = json.Marshal(doc)
+	} else if doctype == "1"{
+		doc := RequestReview{Type:doctype, TaskId: args[2], TaskName: args[3], RequestId: args[4], RequestReviewer: args[5], ReviewResult: args[6], UpdateTime: args[7]}
+		docAsBytes, _ = json.Marshal(doc)
+	} else if doctype == "2"{
+		doc := TestReport{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], TestReportName: args[5], ReportHash: args[6], BugReportList: args[7], WorkerId: args[8], WorkerName: args[9], UpdateTime: args[10]}
+		docAsBytes, _ = json.Marshal(doc)
+	} else if doctype == "3"{
+		doc := ReportReview{Type:doctype, TaskId: args[2], TaskName: args[3], TestReportId: args[4], BugReportId: args[5], BugReportScore: args[6], ReportReviewer: args[7], UpdateTime: args[8]}
+		docAsBytes, _ = json.Marshal(doc)
+	} else if doctype == "4"{
+		doc := ReportMix{Type:doctype, TaskId: args[2], TaskName: args[3], ReportHash: args[4], BugReportList: args[5], ReportMixer:args[6], UpdateTime: args[7]}
+		docAsBytes, _ = json.Marshal(doc)
+	} else if doctype == "5"{
+		doc := TaskState{Type:doctype, TaskId: args[2], TaskName: args[3], TaskState:args[4], UpdateTime: args[5]}
+		docAsBytes, _ = json.Marshal(doc)
+	}
 
-// 	APIstub.PutState(args[0], docAsBytes)
+	APIstub.PutState(args[0], docAsBytes)
 
 	return shim.Success(nil)
 }
@@ -195,55 +195,55 @@ func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) 
 
 func (s *SmartContract) history(stub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-// 	if len(args) < 1 {
-// 		return shim.Error("Incorrect number of arguments. Expecting 1")
-// 	}
+	if len(args) < 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
 
-// 	key := args[0]
-// 	resultsIterator, err := stub.GetHistoryForKey(key)
-// 	if err != nil {
-// 		return shim.Error(err.Error())
-// 	}
-// 	defer resultsIterator.Close()
+	key := args[0]
+	resultsIterator, err := stub.GetHistoryForKey(key)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIterator.Close()
 
-// 	var buffer bytes.Buffer
-// 	buffer.WriteString("[")
+	var buffer bytes.Buffer
+	buffer.WriteString("[")
 
-// 	bArrayMemberAlreadyWritten := false
-// 	for resultsIterator.HasNext() {
-// 		response, err := resultsIterator.Next()
-// 		if err != nil {
-// 			return shim.Error(err.Error())
-// 		}
-// 		if bArrayMemberAlreadyWritten == true {
-// 			buffer.WriteString(",")
-// 		}
-// 		buffer.WriteString("{\"txId\":")
-// 		buffer.WriteString("\"")
-// 		buffer.WriteString(response.TxId)
-// 		buffer.WriteString("\"")
+	bArrayMemberAlreadyWritten := false
+	for resultsIterator.HasNext() {
+		response, err := resultsIterator.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"txId\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(response.TxId)
+		buffer.WriteString("\"")
 
-// 		buffer.WriteString(", \"doc\":")
-// 		if response.IsDelete {
-// 			buffer.WriteString("null")
-// 		} else {
-// 			buffer.WriteString(string(response.Value))
-// 		}
+		buffer.WriteString(", \"doc\":")
+		if response.IsDelete {
+			buffer.WriteString("null")
+		} else {
+			buffer.WriteString(string(response.Value))
+		}
 
 // 		buffer.WriteString(", \"timestamp\":")
 // 		buffer.WriteString("\"")
 // 		buffer.WriteString(time.Unix(response.Timestamp.Seconds, int64(response.Timestamp.Nanos)).String())
 // 		buffer.WriteString("\"")
 
-// 		buffer.WriteString(", \"isDelete\":")
-// 		buffer.WriteString("\"")
-// 		buffer.WriteString(strconv.FormatBool(response.IsDelete))
-// 		buffer.WriteString("\"")
+		buffer.WriteString(", \"isDelete\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(strconv.FormatBool(response.IsDelete))
+		buffer.WriteString("\"")
 
-// 		buffer.WriteString("}")
-// 		bArrayMemberAlreadyWritten = true
-// 	}
-// 	buffer.WriteString("]")
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
 
 	return shim.Success(nil)
 }

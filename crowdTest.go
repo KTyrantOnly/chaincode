@@ -195,57 +195,57 @@ func (t *SmartContract) delete(stub shim.ChaincodeStubInterface, args []string) 
 
 func (s *SmartContract) history(stub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	if len(args) < 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
-	}
+// 	if len(args) < 1 {
+// 		return shim.Error("Incorrect number of arguments. Expecting 1")
+// 	}
 
-	key := args[0]
-	resultsIterator, err := stub.GetHistoryForKey(key)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-	defer resultsIterator.Close()
+// 	key := args[0]
+// 	resultsIterator, err := stub.GetHistoryForKey(key)
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
+// 	defer resultsIterator.Close()
 
-	var buffer bytes.Buffer
-	buffer.WriteString("[")
+// 	var buffer bytes.Buffer
+// 	buffer.WriteString("[")
 
-	bArrayMemberAlreadyWritten := false
-	for resultsIterator.HasNext() {
-		response, err := resultsIterator.Next()
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		if bArrayMemberAlreadyWritten == true {
-			buffer.WriteString(",")
-		}
-		buffer.WriteString("{\"txId\":")
-		buffer.WriteString("\"")
-		buffer.WriteString(response.TxId)
-		buffer.WriteString("\"")
+// 	bArrayMemberAlreadyWritten := false
+// 	for resultsIterator.HasNext() {
+// 		response, err := resultsIterator.Next()
+// 		if err != nil {
+// 			return shim.Error(err.Error())
+// 		}
+// 		if bArrayMemberAlreadyWritten == true {
+// 			buffer.WriteString(",")
+// 		}
+// 		buffer.WriteString("{\"txId\":")
+// 		buffer.WriteString("\"")
+// 		buffer.WriteString(response.TxId)
+// 		buffer.WriteString("\"")
 
-		buffer.WriteString(", \"doc\":")
-		if response.IsDelete {
-			buffer.WriteString("null")
-		} else {
-			buffer.WriteString(string(response.Value))
-		}
+// 		buffer.WriteString(", \"doc\":")
+// 		if response.IsDelete {
+// 			buffer.WriteString("null")
+// 		} else {
+// 			buffer.WriteString(string(response.Value))
+// 		}
 
-		buffer.WriteString(", \"timestamp\":")
-		buffer.WriteString("\"")
-		buffer.WriteString(time.Unix(response.Timestamp.Seconds, int64(response.Timestamp.Nanos)).String())
-		buffer.WriteString("\"")
+// 		buffer.WriteString(", \"timestamp\":")
+// 		buffer.WriteString("\"")
+// 		buffer.WriteString(time.Unix(response.Timestamp.Seconds, int64(response.Timestamp.Nanos)).String())
+// 		buffer.WriteString("\"")
 
-		buffer.WriteString(", \"isDelete\":")
-		buffer.WriteString("\"")
-		buffer.WriteString(strconv.FormatBool(response.IsDelete))
-		buffer.WriteString("\"")
+// 		buffer.WriteString(", \"isDelete\":")
+// 		buffer.WriteString("\"")
+// 		buffer.WriteString(strconv.FormatBool(response.IsDelete))
+// 		buffer.WriteString("\"")
 
-		buffer.WriteString("}")
-		bArrayMemberAlreadyWritten = true
-	}
-	buffer.WriteString("]")
+// 		buffer.WriteString("}")
+// 		bArrayMemberAlreadyWritten = true
+// 	}
+// 	buffer.WriteString("]")
 
-	return shim.Success(buffer.Bytes())
+	return shim.Success(nil)
 }
 
 func getQueryResultForQueryString(stub shim.ChaincodeStubInterface, queryString string) ([]byte, error) {
